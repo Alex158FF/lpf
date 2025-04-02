@@ -205,13 +205,18 @@
             border-radius: 5px;
             font-weight: 600;
             width: 100%;
-            display: none;
+            display: block;
             transition: background-color 0.3s;
             cursor: pointer;
         }
         
         .cta-button:hover {
             background-color: var(--primary-dark);
+        }
+        
+        .cta-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
         }
         
         /* Features */
@@ -428,7 +433,6 @@
             <div class="lead-form" id="email-form">
                 <div class="form-group">
                     <input type="email" id="email" class="form-control" placeholder="Ваш email" required>
-                    <span class="email-label">После ввода email Вы получите письмо со ссылкой на получение бонуса</span>
                 </div>
                 <button id="bonus-button" class="cta-button">Получить бонус</button>
             </div>
@@ -506,20 +510,36 @@
     </footer>
 
     <script>
-        // Показываем кнопку при вводе email
-        document.getElementById('email').addEventListener('input', function() {
-            const email = this.value.trim();
-            const button = document.getElementById('bonus-button');
-            button.style.display = (email.includes('@') && email.includes('.')) ? 'block' : 'none';
+        // Проверяем URL на наличие параметра email и заполняем поле, если он есть
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const emailParam = urlParams.get('email');
+            if (emailParam) {
+                document.getElementById('email').value = decodeURIComponent(emailParam);
+            }
+            
+            // Проверяем email при вводе и активируем/деактивируем кнопку
+            const emailInput = document.getElementById('email');
+            const bonusButton = document.getElementById('bonus-button');
+            
+            emailInput.addEventListener('input', function() {
+                const email = this.value.trim();
+                bonusButton.disabled = !(email.includes('@') && email.includes('.'));
+            });
+            
+            // Инициализируем состояние кнопки
+            bonusButton.disabled = !(emailInput.value.trim().includes('@') && emailInput.value.trim().includes('.'));
         });
 
-        // Отправка формы
+        // Обработка клика по кнопке "Получить бонус"
         document.getElementById('bonus-button').addEventListener('click', function() {
-            const email = document.getElementById('email').value;
-            
-            // Здесь должна быть реальная отправка на сервер
-            console.log('Отправка письма на:', email);
-            alert('Письмо со ссылкой для получения бонуса отправлено на ваш email!');
+            const email = document.getElementById('email').value.trim();
+            if (email.includes('@') && email.includes('.')) {
+                // Перенаправляем на указанный URL с email в параметрах
+                window.location.href = `https://myfreshforex.org/ru/create/?email=${encodeURIComponent(email)}`;
+            } else {
+                alert('Пожалуйста, введите корректный email адрес');
+            }
         });
 
         // Спойлер с условиями
