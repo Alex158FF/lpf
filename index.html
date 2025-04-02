@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15% бонус на первое пополнение | FreshForex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #80b733;
+            --primary-dark: #6a9a2b;
+            --secondary: #ff6b00;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --dark: #333333;
+            --gray: #777777;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 80px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 20px;
+        }
+        
+        .nav-menu a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+            padding: 5px 0;
+            position: relative;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        /* Hero section with video background */
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            color: var(--white);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: var(--white);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .hero h1 span.bonus {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffcc00;
+        }
+        
+        .hero h1 span.subtext {
+            font-size: 36px;
+            display: block;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        /* Lead form */
+        .lead-form {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .email-label {
+            display: block;
+            margin-top: 10px;
+            color: var(--gray);
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 5px;
+            font-weight: 600;
+            width: 100%;
+            display: none;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Features */
+        .features {
+            padding: 60px 0;
+            background-color: var(--white);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .feature-icon {
+            font-size: 30px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        /* Steps */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        
+        .step {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+        }
+        
+        /* Conditions */
+        .conditions {
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .spoiler-toggle {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            transition: background-color 0.3s;
+        }
+        
+        .spoiler-toggle:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .spoiler-content {
+            display: none;
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .conditions-list {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+        
+        .conditions-list li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+        
+        /* CTA */
+        .cta-section {
+            padding: 40px 0 80px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+        
+        .big-button {
+            background-color: var(--primary);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        
+        .big-button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-text {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .step {
+                margin-bottom: 30px;
+            }
+            
+            .logo {
+                height: 60px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero h1 span.bonus {
+                font-size: 38px;
+            }
+            
+            .hero h1 span.subtext {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <img src="images/logo.png" alt="FreshForex" class="logo">
+                <button class="mobile-menu-btn">☰</button>
+                <ul class="nav-menu">
+                    <li><a href="https://fresh-ff.org/company/about/">Компания</a></li>
+                    <li><a href="https://fresh-ff.org/traders/trading/">Торговые условия</a></li>
+                    <li><a href="https://fresh-ff.org/traders/promotion/">Акции и бонусы</a></li>
+                    <li><a href="https://fresh-ff.org/training/school/">Обучение</a></li>
+                    <li><a href="https://fresh-ff.org/analitics/">Аналитика</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <!-- Видео фон -->
+        <video autoplay muted loop class="video-background">
+            <source src="videos/hero-bg.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+        
+        <div class="container hero-content">
+            <h1>
+                <span class="bonus">15% бонус</span>
+                <span class="subtext">на первое пополнение</span>
+            </h1>
+            <p><strong>Реальными деньгами в баланс</strong></p>
+            
+            <div class="lead-form" id="email-form">
+                <div class="form-group">
+                    <input type="email" id="email" class="form-control" placeholder="Ваш email" required>
+                    <span class="email-label">После ввода email Вы получите письмо со ссылкой на получение бонуса</span>
+                </div>
+                <button id="bonus-button" class="cta-button">Получить бонус</button>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Мгновенное пополнение</h3>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💰</div>
+                    <h3>Реальная выгода</h3>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">👨‍💼</div>
+                    <h3>Круглосуточная поддержка</h3>
+                </div>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <p>Зарегистрируйтесь</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <p>Пополните от $100</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <p>Получите +15%</p>
+                </div>
+            </div>
+            
+            <div class="conditions">
+                <button class="spoiler-toggle">Подробные условия акции</button>
+                <div class="spoiler-content" id="spoiler-content">
+                    <ol class="conditions-list">
+                        <li>Период проведения акции с 1 апреля по 30 июня 2025 года.</li>
+                        <li>Размер бонуса на первое пополнение составляет 15% от 100 USD в валюте торгового счета или эквивалент от суммы в USD по внутреннему курсу компании для других доступных валют торгового счета.</li>
+                        <li>Бонус зачисляется на пополненный торговый счет реальными средствами в графу "Баланс" и может быть использован без ограничений в рамках настоящих условий акции.</li>
+                        <li>Максимальная сумма бонуса 500 USD в валюте торгового счета или эквивалент 500 USD по внутреннему курсу компании для других доступных валют торгового счета.</li>
+                        <li>Компания оставляет за собой право:
+                            <ul style="list-style-type: disc; margin-top: 5px;">
+                                <li>Списать бонусные средства, если Клиент решит вывести более 30% от суммы депозита в течение 60 дней после депозита</li>
+                                <li>Отказаться в зачислении бонуса, ограничить его размер для Клиента и (или) списать бонусные средства по своему усмотрению в любое время</li>
+                                <li>Изменить условия или период акции</li>
+                            </ul>
+                        </li>
+                        <li>Получая Бонус, Клиент подтверждает свое согласие с условиями акции.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <h2>Готовы получить +15% к депозиту?</h2>
+            <a href="#email-form" class="big-button">Получить бонус</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-text">
+                © 2025 FreshForex. Все права защищены.<br>
+                Предупреждение о рисках: Торговля на Форекс и CFD связана с высоким уровнем риска и может привести к потере всего инвестированного капитала.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Показываем кнопку при вводе email
+        document.getElementById('email').addEventListener('input', function() {
+            const email = this.value.trim();
+            const button = document.getElementById('bonus-button');
+            button.style.display = (email.includes('@') && email.includes('.')) ? 'block' : 'none';
+        });
+
+        // Отправка формы
+        document.getElementById('bonus-button').addEventListener('click', function() {
+            const email = document.getElementById('email').value;
+            
+            // Здесь должна быть реальная отправка на сервер
+            console.log('Отправка письма на:', email);
+            alert('Письмо со ссылкой для получения бонуса отправлено на ваш email!');
+        });
+
+        // Спойлер с условиями
+        document.querySelector('.spoiler-toggle').addEventListener('click', function() {
+            const content = document.getElementById('spoiler-content');
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            this.textContent = content.style.display === 'block' ? 'Скрыть условия' : 'Подробные условия акции';
+        });
+
+        // Мобильное меню
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.querySelector('.nav-menu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>
